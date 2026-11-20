@@ -1,0 +1,255 @@
+/* dominicseyler.com */
+
+:root {
+  --bg: #ffffff;
+  --surface: #f6f7f9;
+  --text: #1c1f24;
+  --muted: #5f6672;
+  --border: #e3e6ea;
+  --accent: #2456c7;
+  --accent-soft: #e9effc;
+  --sidebar-w: 280px;
+  --content-w: 720px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111317;
+    --surface: #1a1d23;
+    --text: #e6e8ec;
+    --muted: #9aa1ad;
+    --border: #2a2f37;
+    --accent: #7ea6ff;
+    --accent-soft: #1f2a44;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--bg); padding: 8px 12px; z-index: 10;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+/* ---------- Layout ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, var(--content-w));
+  gap: 64px;
+  justify-content: center;
+  max-width: calc(var(--sidebar-w) + var(--content-w) + 64px + 64px);
+  margin: 0 auto;
+  padding: 64px 32px;
+}
+
+/* ---------- Profile sidebar ---------- */
+
+.profile {
+  position: sticky;
+  top: 64px;
+  align-self: start;
+}
+
+.photo {
+  display: block;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.name a { color: var(--text); }
+.name a:hover { text-decoration: none; }
+
+.tagline { margin: 4px 0 16px; color: var(--muted); }
+
+.contact {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.92rem;
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  min-width: 0;
+}
+a.contact-row:hover { color: var(--accent); text-decoration: none; }
+.contact-row .label { overflow-wrap: anywhere; }
+.contact svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+a.contact-row:hover svg { stroke: var(--accent); }
+
+.toc {
+  display: flex; flex-direction: column;
+  border-left: 1px solid var(--border);
+}
+.toc a {
+  color: var(--muted);
+  padding: 4px 0 4px 14px;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--text); border-left-color: var(--accent); text-decoration: none; }
+
+/* ---------- Content ---------- */
+
+main section { margin-bottom: 56px; scroll-margin-top: 24px; }
+
+h2 {
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+#about p { margin: 0; }
+
+/* Publications */
+
+.pub {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.pub:last-child { border-bottom: 0; }
+.pub p { margin: 0; }
+
+.year {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  padding-top: 2px;
+}
+
+.pub h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.pub h3 a { color: var(--text); }
+.pub h3 a:hover { color: var(--accent); }
+
+.authors, .venue { font-size: 0.9rem; color: var(--muted); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px !important; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid transparent;
+}
+.tag:hover { text-decoration: none; border-color: var(--accent); }
+
+/* Timeline lists (education, experience, awards) */
+
+.timeline {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 14px 20px;
+  margin: 0;
+}
+.timeline dt { color: var(--muted); font-size: 0.9rem; padding-top: 1px; }
+.timeline dd { margin: 0; }
+
+.site-footer { color: var(--muted); border-top: 1px solid var(--border); padding-top: 16px; }
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 900px) {
+  .layout {
+    display: block;
+    padding: 24px 16px 40px;
+  }
+
+  /* Flatten the sidebar so the menu can stick to the top of the whole page. */
+  .profile { display: contents; }
+  .photo { float: left; width: 96px; height: 96px; margin: 0 16px 0 0; }
+  .profile-text { overflow: hidden; min-height: 96px; }
+  .name { font-size: 1.35rem; }
+  .tagline { margin: 2px 0 6px; }
+  .contact {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 0.88rem;
+  }
+  .contact svg { width: 14px; height: 14px; }
+  .contact-row { gap: 6px; }
+
+  .toc {
+    clear: both;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    flex-direction: row;
+    gap: 18px;
+    overflow-x: auto;
+    border-left: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    margin: 20px -16px 28px;
+    padding: 10px 16px;
+    scrollbar-width: none;
+  }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a { padding: 0; margin: 0; border: 0; white-space: nowrap; }
+
+  main section { scroll-margin-top: 56px; margin-bottom: 44px; }
+
+  .pub { grid-template-columns: 1fr; gap: 2px; }
+  .timeline { grid-template-columns: 1fr; gap: 2px; }
+  .timeline dd { margin-bottom: 12px; }
+}
